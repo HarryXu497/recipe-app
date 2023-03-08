@@ -1,0 +1,73 @@
+@use "sass:color";
+
+@use "./breakpoints" as breakpoints;
+@use "./colors" as colors;
+
+// Responsive styles
+@mixin media($start, $end) {
+	@media (min-width: $start) and (max-width: $end) {
+		@content;
+	}
+}
+
+@mixin media-mobile {
+	@include media(0px, breakpoints.$breakpoint-mobile) {
+		@content;
+	}
+};
+
+@mixin media-tablet {
+	@include media(breakpoints.$breakpoint-mobile, breakpoints.$breakpoint-tablet) {
+		@content;
+	}
+};
+
+@mixin media-laptop {
+	@include media(breakpoints.$breakpoint-tablet, breakpoints.$breakpoint-laptop) {
+		@content;
+	}
+};
+
+@mixin media-laptop-2 {
+	@include media(breakpoints.$breakpoint-laptop, breakpoints.$breakpoint-laptop-2) {
+		@content;
+	}
+};
+
+
+@mixin media-desktop {
+	@include media(breakpoints.$breakpoint-laptop-2, breakpoints.$breakpoint-desktop) {
+		@content;
+	}
+};
+
+// Component styles
+@mixin button($clr: colors.$color-secondary, $text-color: colors.$color-primary) {
+    // Colors 
+    background-color: $clr;
+	color: $text-color;
+    
+    // Spacing
+    padding: 0.5rem 1.5rem;
+
+    // Border
+    border: none;
+    border-radius: 3px;
+
+	// Font
+	font-size: 1.25rem;
+
+    &:hover {
+        background-color: color.scale($clr, $lightness: -15%);
+
+		cursor: pointer;
+    }
+	
+	&:disabled {
+		background-color: color.adjust($clr, $lightness: 25%);
+
+		&:hover {
+			cursor: auto;
+		}
+	}
+}
