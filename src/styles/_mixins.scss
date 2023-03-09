@@ -41,6 +41,12 @@
 	}
 };
 
+@mixin media-larger {
+	@media (min-width: breakpoints.$breakpoint-desktop) {
+		@content;
+	}
+};
+
 // Component styles
 @mixin button($clr: colors.$color-secondary, $text-color: colors.$color-primary) {
     // Colors 

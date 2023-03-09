@@ -1,4 +1,4 @@
-import PocketBase, { Record} from "pocketbase"
+import PocketBase, { Record } from "pocketbase"
 import type { PageServerLoad } from './$types';
 import type Recipe from '../../recipe.model';
 import type Ingredient from '../../ingredient.model';

@@ -1,35 +1,95 @@
 <script lang="ts">
   	import type Recipe from "../recipe.model";
+  	import StarRating from "./StarRating.svelte";
 
 	export let recipe: Recipe;
 </script>
 
-<div class="recipe-card">
-	<h1>{ recipe.name }</h1>
-	<img src={recipe.images[0]} alt="">
-	<h2>{ recipe.rating }</h2>
-	<p>{ recipe.description }</p>
-	<ul>
-		{#each recipe.expand.ingredients as ingredient}
-			<li>{ ingredient.amount } {ingredient.units}s of {ingredient.name}</li>
-		{/each}
-	</ul>
-</div>
+<a href={`/recipes/${recipe.id}`} class="recipe-card">
+	<div class="image-container">
+		<img src={recipe.images[0]} alt={recipe.name}>
+	</div>
+	<div class="recipe-information">
+		<h1>{ recipe.name }</h1>
+		<div class="recipe-data">
+			<span>{recipe.time} min</span>
+			<StarRating rating={recipe.rating}/>
+		</div>
+	</div>
+</a>
 
 <style lang="scss">
 	@use "../styles/exports.scss" as exports;
 
+	$font-serif: 'Gelasio', serif;
+	$font-sans-serif: "Golos Text", sans-serif;
+
 	.recipe-card {
+		isolation: isolate;
+
+		color: black;
+		text-decoration: none;
+
+		background-color: exports.$color-primary-100;
+		
+		position: relative;
+
 		border: 1px solid black;
-		border-radius: 5px;
+		border-radius: 1px;
+
+		overflow: hidden;
+		
+		width: max(16rem, 96%);
 		
 		h1 {
-			font-size: 2rem;
-			font-family: 'Gelasio', serif;
+			font-size: 2.5rem;
+			font-family: $font-serif;
+
+			padding: 0.75rem 0.5rem;
 		}
 
-		p, ul {
-			font-family: 'Golos Text', serif;
+		&:hover {
+			transform: translate(-2px,-2px);
+    		box-shadow: 5px 5px 0 exports.$color-secondary-800;
+		}
+	}
+
+	.recipe-information {
+		height: 100%;
+
+		min-height: 8rem;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	.recipe-data {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+
+
+		font-family: $font-sans-serif;
+		
+		padding: 0.75rem 0.5rem;
+	}
+
+	.image-container {
+		width: 100%;
+
+		overflow: hidden;
+
+		img {
+			width: 100%;
+			aspect-ratio: 4 / 3;
+			object-fit: cover;
+		}
+	}
+
+	@include exports.media-tablet {
+		.recipe-card {
+			width: auto;
 		}
 	}
 </style>
