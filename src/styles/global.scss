@@ -3,6 +3,8 @@
    License: none (public domain)
 */
 
+@use "./exports.scss" as exports;
+
 @import url('https://fonts.googleapis.com/css2?family=Gelasio:wght@400;600;700&family=Golos+Text:wght@400;600;700&display=swap');
 
 html, body, div, span, applet, object, iframe,
@@ -47,4 +49,12 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+	background-color: exports.$color-accent-200;
 }
