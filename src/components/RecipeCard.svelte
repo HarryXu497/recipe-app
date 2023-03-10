@@ -21,9 +21,6 @@
 <style lang="scss">
 	@use "../styles/exports.scss" as exports;
 
-	$font-serif: 'Gelasio', serif;
-	$font-sans-serif: "Golos Text", sans-serif;
-
 	.recipe-card {
 		isolation: isolate;
 
@@ -42,7 +39,7 @@
 		
 		h1 {
 			font-size: 2.5rem;
-			font-family: $font-serif;
+			font-family: exports.$font-serif;
 
 			padding: 0.75rem 0.5rem;
 		}
@@ -69,7 +66,7 @@
 		justify-content: space-between;
 
 
-		font-family: $font-sans-serif;
+		font-family: exports.$font-sans-serif;
 		
 		padding: 0.75rem 0.5rem;
 	}
