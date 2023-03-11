@@ -2,44 +2,90 @@
 	export let images: string[];
 
 	let currentIndex = 0;
-	// $: previousImage = images[currentIndex === 0 ? images.length - 1 : currentIndex - 1];
-	$: currentImage = images[currentIndex];
-	// $: nextImage = images[currentIndex === images.length - 1 ? 0 : currentIndex + 1];
+
+	// $: previousImagePath = images[currentIndex === 0 ? images.length - 1 : currentIndex - 1];
+	$: currentImagePath = images[currentIndex];
+	// $: nextImagePath = images[currentIndex === images.length - 1 ? 0 : currentIndex + 1];
 
 	function nextImage() {
-		currentIndex = currentIndex === 0 ? images.length - 1 : currentIndex - 1
+		currentIndex = currentIndex === 0 ? images.length - 1 : currentIndex - 1;
 	}
 
 	function prevImage() {
-		currentIndex = currentIndex === images.length - 1 ? 0 : currentIndex + 1
+		currentIndex = currentIndex === images.length - 1 ? 0 : currentIndex + 1;
 	}
-
-	console.log(images);
 
 </script>
 
 <div class="carousel">
-	<span class="previous-image" on:click={prevImage}>&lt;</span>
+	<button class="previous-image arrow-button" on:click={prevImage}><img src="../left-arrow.png" alt=""></button>
 	<!-- <div class="image-container previous">
-		<img src={previousImage} alt="">
+		<img src={previousImagePath} alt="">
 	</div> -->
 	<div class="image-container current">
-		<img src={currentImage} alt="">
+		<img src={currentImagePath} alt="">
 	</div>
 	<!-- <div class="image-container next">
-		<img src={nextImage} alt="">
+		<img src={nextImagePath} alt="">
 	</div> -->
-	<span class="next-image" on:click={nextImage}>&gt;</span>
+	<button class="next-image arrow-button" on:click={nextImage}><img src="../right-arrow.png" alt=""></button>
 </div>
 
 
 <style lang="scss">
-	.image-container {
+	@use "../styles/exports.scss" as exports;
+	
+	:global(body) {
+		background-color: exports.$color-accent-100;
+	}
+
+	.carousel {
 		position: relative;
+		height: 100%;
+		/* overflow-x: hidden; */
+	}
+
+	.image-container {
+		position: absolute;
+		inset: 0;
 
 		img {
+			width: 100%;
+			height: 100%;
 			position: absolute;
-			inset: 0;
+			object-fit: cover;
+		}
+	}
+
+	.previous {
+		position: absolute;
+		transform: translateX(-100%);
+	}
+
+	.next {
+		position: absolute;
+		transform: translateX(100%);
+	}
+
+	.arrow-button {
+		position: absolute;
+		z-index: 2;
+
+		top: calc(50%);
+		transform: translateY(-50%);
+		
+		padding: 0.75rem 0.75rem 1rem 1.25rem;
+		border: none;
+		
+		background-color: rgba(0, 0, 0, 0.3);
+		color: white;
+
+		&.next-image {
+			right: 0;
+		}
+
+		img {
+			object-fit: c;
 		}
 	}
 </style>

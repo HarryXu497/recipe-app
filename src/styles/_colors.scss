@@ -20,12 +20,23 @@ $color-accent-100: hsl(180, 29%, 95%);
 $color-accent-200: hsl(180, 29%, 90%);
 $color-accent-300: hsl(180, 29%, 85%);
 $color-accent-400: hsl(180, 29%, 80%);
-$color-accent-500: hsl(180, 29%, 85%);
-$color-accent-600: hsl(180, 29%, 80%);
-$color-accent-700: hsl(180, 29%, 75%);
-$color-accent-800: hsl(180, 29%, 70%);
+$color-accent-500: hsl(180, 29%, 75%);
+$color-accent-600: hsl(180, 29%, 70%);
+$color-accent-700: hsl(180, 29%, 65%);
+$color-accent-800: hsl(180, 29%, 60%);
 
+$color-dark-100: hsl(0, 0%, 0%);
+$color-dark-200: hsl(0, 0%, 5%);
+$color-dark-300: hsl(0, 0%, 10%);
+$color-dark-400: hsl(0, 0%, 15%);
+$color-dark-500: hsl(0, 0%, 20%);
+$color-dark-600: hsl(0, 0%, 25%);
+$color-dark-700: hsl(0, 0%, 30%);
+$color-dark-800: hsl(0, 0%, 35%);
+
+$color-dark: $color-dark-100;
 $color-primary: $color-primary-100;
 $color-secondary: $color-secondary-400;
 $color-accent: $color-accent-800;
+
 

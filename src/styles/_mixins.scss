@@ -22,8 +22,14 @@
 	}
 };
 
+@mixin media-tablet-2 {
+	@include media(breakpoints.$breakpoint-tablet, breakpoints.$breakpoint-tablet-2) {
+		@content;
+	}
+};
+
 @mixin media-laptop {
-	@include media(breakpoints.$breakpoint-tablet, breakpoints.$breakpoint-laptop) {
+	@include media(breakpoints.$breakpoint-tablet-2, breakpoints.$breakpoint-laptop) {
 		@content;
 	}
 };

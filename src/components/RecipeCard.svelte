@@ -5,7 +5,7 @@
 	export let recipe: Recipe;
 </script>
 
-<a href={`/recipes/${recipe.id}`} class="recipe-card">
+<a href={`/recipes/${encodeURIComponent(recipe.id)}`} class="recipe-card">
 	<div class="image-container">
 		<img src={recipe.images[0]} alt={recipe.name}>
 	</div>
@@ -22,7 +22,13 @@
 	@use "../styles/exports.scss" as exports;
 
 	.recipe-card {
+		position: relative;
 		isolation: isolate;
+
+		display: inline-block;
+
+		appearance: none;
+		border: none;
 
 		color: black;
 		text-decoration: none;
@@ -36,6 +42,9 @@
 		overflow: hidden;
 		
 		width: max(16rem, 96%);
+
+		/* min-height: 26rem; */
+		/* aspect-ratio: 23 / 24; */
 		
 		h1 {
 			font-size: 2.5rem;
@@ -44,21 +53,26 @@
 			padding: 0.75rem 0.5rem;
 		}
 
-		&:hover {
+		&:hover, &:focus {
 			transform: translate(-2px,-2px);
     		box-shadow: 5px 5px 0 exports.$color-secondary-800;
 		}
 	}
 
+
 	.recipe-information {
-		height: 100%;
-
-		min-height: 8rem;
-
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
 	}
+
+
+	/* .recipe-data {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	} */
 
 	.recipe-data {
 		display: flex;
@@ -84,8 +98,8 @@
 	}
 
 	@include exports.media-tablet {
-		.recipe-card {
+		/* .recipe-card {
 			width: auto;
-		}
+		} */
 	}
 </style>
