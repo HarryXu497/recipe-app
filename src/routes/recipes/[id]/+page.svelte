@@ -1,13 +1,8 @@
 <script lang="ts">
-	import StarRating from "../../../components/StarRating.svelte";
-	import ImageCarousel from "../../../components/ImageCarousel.svelte";
-	import type { PageServerData } from "./$types";
-	import type Recipe from "../../../recipe.model";
 	import RecipesList from "../../../components/RecipesList.svelte";
+	import type { PageServerData } from "./$types";
 
   	export let data: PageServerData;
-
-	console.log(data)
 </script>
 
 

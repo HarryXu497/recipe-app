@@ -1,6 +1,6 @@
 <script lang="ts">
   	import type Recipe from "../recipe.model";
-	import RecipeCard from "./RecipeCard.svelte";
+  	import RecipeGrid from "./RecipeGrid.svelte";
   	import RecipeInfo from "./RecipeInfo.svelte";
 
 	export let recipes: Recipe[];
@@ -8,10 +8,8 @@
 </script>
 
 <main>
-	<div class="recipe-grid">
-		{#each recipes as recipe}
-			<RecipeCard recipe={recipe}/>
-		{/each}
+	<div class="recipe-grid" class:recipe-grid-open={!selectedRecipe}>
+		<RecipeGrid recipes={recipes}/>
 	</div>
 	{#if selectedRecipe}
 		<div class="recipe-info">
@@ -39,15 +37,15 @@
 		grid-auto-rows: max-content;
 
 		padding: var(--padding);
-		width: 70%;
-		overflow-y: scroll;
+		flex: 70%;
+		overflow-y: auto;
 		height: calc(100% - calc(2 * var(--padding)));
 
 		gap: 1rem;
 	}
 
 	.recipe-info {
-		width: 30%;
+		flex: 30%;
 	}
 
 	.recipe-grid {
@@ -70,6 +68,10 @@
 			align-items: flex-start;
 			grid-template-columns: repeat(1, 1fr);
 		}
+
+		.recipe-grid-open {
+			grid-template-columns: repeat(2, 1fr);
+		}
 	}
 
 
@@ -82,6 +84,10 @@
 			align-items: flex-start;
 			grid-template-columns: repeat(1, 1fr);
 		}
+
+		.recipe-grid-open {
+			grid-template-columns: repeat(2, 1fr);
+		}
 	}
 
 	@include exports.media-tablet-2 {
@@ -93,11 +99,15 @@
 			align-items: flex-start;
 			grid-template-columns: repeat(1, 1fr);
 
-			width: 40%;
+			flex: 40%;
 		}
 
 		.recipe-info {
-			width: 60%;
+			flex: 60%;
+		}
+
+		.recipe-grid-open {
+			grid-template-columns: repeat(2, 1fr);
 		}
 	}
 
@@ -109,12 +119,16 @@
 			align-content: flex-start;
 			align-items: flex-start;
 			grid-template-columns: repeat(2, 1fr);
-			width: 60%;
+			flex: 60%;
 			gap: 1rem;
 		}
 
 		.recipe-info {
-			width: 40%;
+			flex: 40%;
+		}
+
+		.recipe-grid-open {
+			grid-template-columns: repeat(3, 1fr);
 		}
 	}
 
@@ -127,11 +141,15 @@
 			align-items: flex-start;
 			grid-template-columns: repeat(2, 1fr);
 
-			width: 60%;
+			flex: 60%;
 		}
 
 		.recipe-info {
-			width: 40%;
+			flex: 40%;
+		}
+
+		.recipe-grid-open {
+			grid-template-columns: repeat(3, 1fr);
 		}
 	}
 
@@ -144,6 +162,9 @@
 			grid-auto-rows: max-content;
 		}
 
+		.recipe-grid-open {
+			grid-template-columns: repeat(4, 1fr);
+		}
 	}
 
 	@include exports.media-larger {
@@ -154,7 +175,10 @@
 			grid-template-columns: repeat(4, 1fr);
 			grid-auto-rows: max-content;
 			max-width: exports.$breakpoint-desktop;
-			
+		}
+
+		.recipe-grid-open {
+			grid-template-columns: repeat(5, 1fr);
 		}
 	}
 	

@@ -34,15 +34,10 @@
 
 <style lang="scss">
 	@use "../styles/exports.scss" as exports;
-	
-	:global(body) {
-		background-color: exports.$color-accent-100;
-	}
 
 	.carousel {
 		position: relative;
 		height: 100%;
-		/* overflow-x: hidden; */
 	}
 
 	.image-container {
@@ -55,16 +50,6 @@
 			position: absolute;
 			object-fit: cover;
 		}
-	}
-
-	.previous {
-		position: absolute;
-		transform: translateX(-100%);
-	}
-
-	.next {
-		position: absolute;
-		transform: translateX(100%);
 	}
 
 	.arrow-button {
@@ -84,8 +69,8 @@
 			right: 0;
 		}
 
-		img {
-			object-fit: c;
+		&:hover {
+			cursor: pointer;
 		}
 	}
 </style>

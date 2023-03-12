@@ -1,7 +1,10 @@
 import type { Record } from "pocketbase"
 
-export default interface Ingredient extends Record {
+export interface IngredientObject {
 	name: string;
 	amount: number;
 	units: string;
 }
+
+export default interface Ingredient extends Record, IngredientObject {}
+
