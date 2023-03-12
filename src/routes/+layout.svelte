@@ -5,7 +5,7 @@
 <nav>
 	<div class="nav-logo">
 		<img src="../logo.png" alt="">
-		RecipeBook!
+		<a href="/">RecipeBook!</a>
 	</div>
 	<div class="nav-links">
 		<a href="/recipes">Recipes</a>
@@ -21,6 +21,10 @@
 
 <style lang="scss">
 	@use "../styles/exports.scss" as exports;
+
+	a {
+		color: exports.$color-dark;
+	}
 
 	nav {
 		display: relative;
@@ -42,10 +46,16 @@
 		align-items: center;
 		gap: 0.75rem;
 
+		font-family: exports.$font-serif;
+
 		font-size: 2rem;
 
 		img {
 			width: 3rem;
+		}
+
+		a {
+			text-decoration: none;
 		}
 	}
 
@@ -61,8 +71,5 @@
 
 		font-size: 1.25rem;
 
-		a {
-			color: exports.$color-dark;
-		}
 	}
 </style>
