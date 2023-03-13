@@ -13,18 +13,7 @@
 			}
 		]
 	}
-	// let name: string;
-	// let description: string;
-	// let time: number;
 	
-	// let ingredients: IngredientObject[] = [
-	// 	{
-	// 		name: "",
-	// 		amount: 0,
-	// 		units: "",
-	// 	}
-	// ];
-
 	function addIngredient() {
 		controls.ingredients = [...controls.ingredients, {
 			name: "",

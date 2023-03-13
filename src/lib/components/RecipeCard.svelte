@@ -1,5 +1,5 @@
 <script lang="ts">
-  	import type Recipe from "../recipe.model";
+  	import type Recipe from "../../recipe.model";
   	import StarRating from "./StarRating.svelte";
 
 	export let recipe: Recipe;
@@ -19,7 +19,7 @@
 </a>
 
 <style lang="scss">
-	@use "../styles/exports.scss" as exports;
+	@use "../../styles/exports.scss" as exports;
 
 	.recipe-card {
 		position: relative;

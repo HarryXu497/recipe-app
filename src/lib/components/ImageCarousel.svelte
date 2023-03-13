@@ -33,7 +33,7 @@
 
 
 <style lang="scss">
-	@use "../styles/exports.scss" as exports;
+	@use "../../styles/exports.scss" as exports;
 
 	.carousel {
 		position: relative;

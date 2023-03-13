@@ -1,5 +1,5 @@
 <script lang="ts">
-	import RecipeGrid from "../components/RecipeGrid.svelte";
+	import RecipeGrid from "$lib/components/RecipeGrid.svelte";
 	import type { PageServerData } from "./$types";
 
 	export let data: PageServerData;

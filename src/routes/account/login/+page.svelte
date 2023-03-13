@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ActionData } from "./$types";
 	import { enhance } from "$app/forms";
-  	import AccountForm from "../../../components/AccountForm.svelte";
+  	import AccountForm from "$lib/components/AccountForm.svelte";
 
 	export let form: ActionData;
 </script>

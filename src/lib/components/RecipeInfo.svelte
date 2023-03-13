@@ -1,7 +1,7 @@
 <script lang="ts">
 	import StarRating from "./StarRating.svelte";
   	import ImageCarousel from "./ImageCarousel.svelte";
-  	import type Recipe from "../recipe.model";
+  	import type Recipe from "../../recipe.model";
 
 	export let recipe: Recipe;
 </script>
@@ -23,7 +23,7 @@
 </main>
 
 <style lang="scss">
-  @use "../styles/exports.scss" as exports; 
+  @use "../../styles/exports.scss" as exports; 
 
   $top-padding: 3rem;
 

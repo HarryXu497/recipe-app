@@ -1,5 +1,5 @@
 <script lang="ts">
-  	import type Recipe from "../recipe.model";
+  	import type Recipe from "../../recipe.model";
   	import RecipeGrid from "./RecipeGrid.svelte";
   	import RecipeInfo from "./RecipeInfo.svelte";
 
@@ -19,7 +19,7 @@
 </main>
 
 <style lang="scss">
-	@use "../styles/exports.scss" as exports;
+	@use "../../styles/exports.scss" as exports;
 
 	main {
 		display: flex;

@@ -15,7 +15,7 @@
 </section>
 
 <style lang="scss">
-	@use "../styles/exports.scss" as exports;
+	@use "../../styles/exports.scss" as exports;
 
 	.form-container {
 		position: relative;
