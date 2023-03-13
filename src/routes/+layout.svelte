@@ -1,4 +1,5 @@
 <script>
+	import { currentUser, pb } from "$lib/pocketbase";
 	import "../styles/global.scss";
 </script>
 
@@ -13,7 +14,14 @@
 		<a href="/recipes">Recipes</a>
 	</div>
 	<div class="nav-account">
-		account
+		{#if $currentUser}
+			<a href="/account">{ $currentUser.username }</a>
+			<button on:click={() => pb.authStore.clear()}>
+				Logout
+			</button>
+		{:else}
+			<a href="/account/login">Log in</a>
+		{/if}
 	</div>
 </nav>
 
