@@ -19,7 +19,7 @@
 	<div class="nav-account">
 		{#if $currentUser}
 			<a href="/account">{ $currentUser.username }</a>
-			<form action="account/logout" method="POST" use:enhance={() => {
+			<form action="/account/logout" method="POST" use:enhance={() => {
 				return async ({ result }) => {
 					pb.authStore.clear();
 					await applyAction(result);
