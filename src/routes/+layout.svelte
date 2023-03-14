@@ -1,6 +1,9 @@
-<script>
+<script lang="ts">
+	import type { Record } from "pocketbase";
 	import { currentUser, pb } from "$lib/pocketbase";
 	import "../styles/global.scss";
+  	import { applyAction, enhance } from "$app/forms";
+
 </script>
 
 <nav>
@@ -16,9 +19,16 @@
 	<div class="nav-account">
 		{#if $currentUser}
 			<a href="/account">{ $currentUser.username }</a>
-			<button on:click={() => pb.authStore.clear()}>
-				Logout
-			</button>
+			<form action="account/logout" method="POST" use:enhance={() => {
+				return async ({ result }) => {
+					pb.authStore.clear();
+					await applyAction(result);
+				}
+			}}>
+				<button type="submit">
+					Logout
+				</button>
+			</form>
 		{:else}
 			<a href="/account/login">Log in</a>
 		{/if}

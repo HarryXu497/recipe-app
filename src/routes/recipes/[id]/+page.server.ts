@@ -1,9 +1,8 @@
-import PocketBase, { Record } from "pocketbase"
+import type { Record } from "pocketbase"
 import type { PageServerLoad } from './$types';
 import type Ingredient from '../../../ingredient.model';
 import type Recipe from '../../../recipe.model';
-
-const pb = new PocketBase("http://127.0.0.1:8090");
+import { pb } from '$lib/pocketbase';
 
 export const load = (async (context) => {
 	const recipesCollection = pb.collection("recipes");

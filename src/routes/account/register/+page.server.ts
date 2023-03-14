@@ -1,6 +1,6 @@
 import type { Actions } from "./$types";
-import { pb } from '../../../lib/pocketbase';
-import { fail } from "@sveltejs/kit";
+import { pb } from '$lib/pocketbase';
+import { fail, redirect } from "@sveltejs/kit";
 import { ClientResponseError } from "pocketbase";
 import { ZodError } from "zod";
 import registerSchema from '../account.schema';
@@ -23,7 +23,7 @@ export const actions = {
 	
 			await users.create(data);
 			
-			users.authWithPassword(<string> formData.get("username"), <string> formData.get("password"));
+			await users.authWithPassword(<string> formData.get("username"), <string> formData.get("password"));
 		} catch (err) {
 			if (err instanceof ClientResponseError) {
 				return fail(400, { error: {...err} })
@@ -40,6 +40,10 @@ export const actions = {
 				})
 			}
 			return fail(400)
+		}
+
+		if (event.url.searchParams.has('redirectTo')) {
+			throw redirect(303, event.url.searchParams.get('redirectTo') || "/");
 		}
 
 		return { success: true };

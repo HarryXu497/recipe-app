@@ -1,7 +1,8 @@
 <script lang="ts">
 	import type { ActionData } from "./$types";
-	import { enhance } from "$app/forms";
+	import { applyAction, enhance } from "$app/forms";
   	import AccountForm from "$lib/components/AccountForm.svelte";
+  	import { pb } from "$lib/pocketbase";
 
 	export let form: ActionData;
 </script>
@@ -17,7 +18,18 @@
 		</a>
 	</div>
 
-	<form method="POST" slot="form-content" use:enhance>
+	<form method="POST" slot="form-content" use:enhance={({ form }) => {
+
+		return async ({ result }) => {
+			pb.authStore.loadFromCookie(document.cookie);
+
+			if (result.type == "success") {
+				form.reset();
+			}
+
+			await applyAction(result);
+		}
+	}}>
 		<div class="form-controls">
 			<div class="form-control username-input">
 				<label for="username">Username</label>

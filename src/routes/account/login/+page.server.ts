@@ -1,6 +1,6 @@
 import type { Actions } from "./$types";
-import { pb } from '../../../lib/pocketbase';
-import { fail } from "@sveltejs/kit";
+import { pb } from '$lib/pocketbase';
+import { fail, redirect } from "@sveltejs/kit";
 import { ClientResponseError } from "pocketbase";
 import { ZodError } from "zod";
 
@@ -36,6 +36,11 @@ export const actions = {
 				})
 			}
 			return fail(400);
+		}
+
+		/// Redirect
+		if (event.url.searchParams.has('redirectTo')) {
+			throw redirect(303, event.url.searchParams.get('redirectTo') || "/");
 		}
 
 		return { success: true };
