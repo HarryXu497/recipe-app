@@ -1,38 +1,23 @@
 <script lang="ts">
+  	import { enhance } from "$app/forms";
   	import AccountForm from "$lib/components/AccountForm.svelte";
-  	import { currentUser, pb } from "$lib/pocketbase";
+  	import type { IngredientObject } from "../../../ingredient.model";
 
-	interface Controls {
-		name: string;
-		description: string;
-		files: (string | ArrayBuffer | null | undefined)[];
-		time: number;
-		ingredients: {
-			name: string,
-			amount: number | null,
-			units?: string,
-		}[]
+	interface FormIngredient extends Omit<IngredientObject, 'amount'> {
+		amount: number | null;
 	}
-	
 
 	let files: FileList;
-
-	let controls: Controls = {
+	let ingredients: FormIngredient[] = [{
 		name: "",
-		description: "",
-		files: [],
-		time: 0,
-		ingredients: [
-			{
-				name: "",
-				amount: null,
-				units: "",
-			}
-		]
-	}
-	
+		amount: null,
+		units: "",
+	}]
+
+	$: ingredientsLength = ingredients.length;
+
 	function addIngredient() {
-		controls.ingredients = [...controls.ingredients, {
+		ingredients = [...ingredients, {
 			name: "",
 			amount: null,
 			units: "",
@@ -41,82 +26,49 @@
 
 	function removeIngredient(index: number) {
 		// Minimum one ingredient
-		if (controls.ingredients.length !== 1) {
-			controls.ingredients = controls.ingredients.filter((v, i) => i !== index)
+		if (ingredientsLength !== 1) {
+			ingredients = ingredients.filter((v, i) => i !== index)
 		}
 	}
 
-	async function onSubmit() {
-		if (!$currentUser) {
-			return;
-		}
-
-		const formData = new FormData();
-
-		const ingredientsCollection = pb.collection('ingredients');
-		const recipeCollection = pb.collection('recipes');
-		
-		const ingredients = await Promise.all(controls.ingredients.map(async (ingredient) => ingredientsCollection.create(ingredient)))
-		const ingredientIds = ingredients.map(ingredient => ingredient.id);
-
-		formData.set("name", controls.name);
-		formData.set("description", controls.description);
-		formData.set("author", $currentUser.id);
-		formData.set("rating", "5");
-		formData.set("time", "" + controls.time);
-
-		for (const ingredient of ingredientIds) {
-			formData.append("ingredients", ingredient);
-		}
-
-		for (const file of files) {
-			formData.append("images", file);
-		}
-
-		await recipeCollection.create(formData);
-	}
-
-	function getBase64(images: FileList) {
-		for (const image of images) {
-			const reader = new FileReader();
-			reader.readAsDataURL(image);
-			reader.onload = e => {
-				console.log(e.target?.result);
-				controls.files.push(e.target?.result)
-			}
-		}
-	}
 </script>
 
 <AccountForm>
 	<div slot="form-nav">
 		Create Your Recipe
 	</div>
-	<form slot="form-content" on:submit|preventDefault={onSubmit} enctype="multipart/form-data">
+	<!-- svelte-ignore missing-declaration -->
+	<form slot="form-content" enctype="multipart/form-data" method="POST" use:enhance={({ data }) => {
+		for (const file of files) {
+			data.append("images", file);
+		}
+
+		data.set("ingredientsLength", `${ingredientsLength}`)
+	}}>
 		<div class="form-controls">
 			<div class="form-control name-input">
 				<label for="name">Name</label>
-				<input type="text" name="name" id="name" bind:value={controls.name}>
+				<input type="text" name="name" id="name">
 			</div>
 			<div class="form-control description-input">
 				<label for="description">Description</label>
-				<input type="text" name="description" id="description" bind:value={controls.description}>
+				<input type="text" name="description" id="description">
 			</div>
 			<div class="form-control name-input">
 				<label for="time">Time (min)</label>
-				<input type="number" name="time" id="time" bind:value={controls.time}>
+				<input type="number" name="time" id="time">
 			</div>
 			<div class="form-control image-input">
-				<label for="image">Images</label>
-				<input type="file" name="image" id="image" bind:files on:change={() => getBase64(files)} multiple accept=".png,.jpg">
+				<label for="images">Images</label>
+				<input type="file" name="images" id="images" bind:files multiple accept=".png,.jpg">
 			</div>
 			<fieldset class="form-control ingredients-input" name="ingredients">
 				<legend>Ingredients</legend>
-				{#each controls.ingredients as _, i (i)}
+				{#each ingredients as _, i (i)}
 					<div class="ingredient-input">
-						<input type="text" bind:value={controls.ingredients[i].name} placeholder="Name">
-						<input type="number" bind:value={controls.ingredients[i].amount} placeholder="Amount">
-						<input type="text" bind:value={controls.ingredients[i].units} placeholder="Units">
+						<input type="text" name={`ingredient.${i}.name`} bind:value={ingredients[i].name} placeholder="Name">
+						<input type="number" name={`ingredient.${i}.amount`} bind:value={ingredients[i].amount} placeholder="Amount">
+						<input type="text" name={`ingredient.${i}.units`} bind:value={ingredients[i].units}  placeholder="Units">
 						<button type="button" on:click={() => removeIngredient(i)}>&#10005;</button>
 					</div>
 				{/each}

@@ -5,7 +5,7 @@ import type Ingredient from '../../ingredient.model';
 import { pb } from "$lib/pocketbase";
 
 
-export const load = (async (context) => {
+export const load = (async () => {
 	const recipesCollection = pb.collection("recipes");
 	const recipes = await recipesCollection.getList<Recipe>(1, 40, {
 		expand: "author,ingredients",
