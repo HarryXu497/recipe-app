@@ -8,6 +8,7 @@
 	}
 
 	let files: FileList;
+	
 	let ingredients: FormIngredient[] = [{
 		name: "",
 		amount: null,
@@ -39,11 +40,12 @@
 	</div>
 	<!-- svelte-ignore missing-declaration -->
 	<form slot="form-content" enctype="multipart/form-data" method="POST" use:enhance={({ data }) => {
-		for (const file of files) {
-			data.append("images", file);
+		for (let i = 0; i < files.length; i++) {
+			data.append(`images.${i}`, files[i]);
 		}
-
+		
 		data.set("ingredientsLength", `${ingredientsLength}`)
+		data.set("imagesLength", `${files.length}`)
 	}}>
 		<div class="form-controls">
 			<div class="form-control name-input">

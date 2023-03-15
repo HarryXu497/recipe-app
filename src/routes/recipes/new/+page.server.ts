@@ -6,7 +6,8 @@ import { redirect } from '@sveltejs/kit';
  
 export const actions = {
 	default: async (event) => {
-		const formDataAsObject = Object.fromEntries(await event.request.formData());
+		const formData = await event.request.formData();
+		const formDataAsObject = Object.fromEntries(formData);
 
 		
 		const ingredientsCollection = pb.collection('ingredients');
@@ -39,12 +40,15 @@ export const actions = {
 		finalFormData.append("description", formDataAsObject.description)
 		finalFormData.append("time", formDataAsObject.time)
 		finalFormData.append("author", event.locals.user.id)
-		finalFormData.append("images", formDataAsObject.images)
+		for (const v of formData.getAll("images")) {
+			finalFormData.append("images", v)
+		}
 		finalFormData.append("rating", "5")
 		
 		for (const ingredient of ingredientIds) {
 			finalFormData.append("ingredients", ingredient);
 		}
+
 
 		let newRecipe: Record;
 

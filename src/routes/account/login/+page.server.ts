@@ -17,8 +17,6 @@ export const actions = {
 		const users = pb.collection("users");
 
 		try {
-			// loginSchema.parse(data);
-
 			await users.authWithPassword(<string> data.username, <string> data.password);
 			// users.requestVerification(formData.get("email");
 		} catch (err) {

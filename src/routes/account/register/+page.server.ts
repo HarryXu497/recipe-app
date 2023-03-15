@@ -17,11 +17,11 @@ export const actions = {
 		}
 
 		try {
-			registerSchema.parse(data);
+			const parsedData = registerSchema.parse(data);
 
 			const users = pb.collection('users');
 	
-			await users.create(data);
+			await users.create(parsedData);
 			
 			await users.authWithPassword(<string> formData.get("username"), <string> formData.get("password"));
 		} catch (err) {

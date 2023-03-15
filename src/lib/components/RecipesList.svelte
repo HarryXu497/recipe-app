@@ -67,10 +67,16 @@
 			align-content: flex-start;
 			align-items: flex-start;
 			grid-template-columns: repeat(1, 1fr);
+
+			flex: 40%;
+		}
+
+		.recipe-info {
+			flex: 60%;
 		}
 
 		.recipe-grid-open {
-			grid-template-columns: repeat(2, 1fr);
+			grid-template-columns: repeat(1, 1fr);
 		}
 	}
 
@@ -83,10 +89,14 @@
 			align-content: flex-start;
 			align-items: flex-start;
 			grid-template-columns: repeat(1, 1fr);
+
+			flex: 20%;
 		}
 
 		.recipe-grid-open {
-			grid-template-columns: repeat(2, 1fr);
+			grid-template-columns: repeat(1, 1fr);
+
+			flex: 80%;
 		}
 	}
 
