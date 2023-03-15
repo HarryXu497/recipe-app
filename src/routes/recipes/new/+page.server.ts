@@ -23,10 +23,11 @@ export const actions = {
 				units: <string> formDataAsObject[`ingredient.${i}.units`] || "",
 			})
 		}
-		
-		const ingredients = await Promise.all(formIngredients.map(async (ingredient) => ingredientsCollection.create(ingredient)))
-		const ingredientIds = ingredients.map(ingredient => ingredient.id);
 
+
+		const ingredients = await Promise.all(formIngredients.map(ingredient => ingredientsCollection.create(ingredient, { $autoCancel: false })))
+
+		const ingredientIds = ingredients.map(ingredient => ingredient.id);
 
 		const finalFormData = new FormData();
 
