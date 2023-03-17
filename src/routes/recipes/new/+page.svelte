@@ -2,12 +2,15 @@
   	import { enhance } from "$app/forms";
   	import AccountForm from "$lib/components/AccountForm.svelte";
   	import type { IngredientObject } from "../../../ingredient.model";
+  	import type { ActionData } from "./$types";
 
+	export let form: ActionData;
+	let files: FileList;
+	
 	interface FormIngredient extends Omit<IngredientObject, 'amount'> {
 		amount: number | null;
 	}
 
-	let files: FileList;
 	
 	let ingredients: FormIngredient[] = [{
 		name: "",
@@ -40,40 +43,52 @@
 	</div>
 	<!-- svelte-ignore missing-declaration -->
 	<form slot="form-content" enctype="multipart/form-data" method="POST" use:enhance={({ data }) => {
-		for (let i = 0; i < files.length; i++) {
-			data.append(`images.${i}`, files[i]);
+		for (let i = 0; i < ingredients.length; i++) {
+			data.append("ingredients", JSON.stringify(ingredients[i]))
 		}
-		
-		data.set("ingredientsLength", `${ingredientsLength}`)
-		data.set("imagesLength", `${files.length}`)
 	}}>
 		<div class="form-controls">
 			<div class="form-control name-input">
 				<label for="name">Name</label>
 				<input type="text" name="name" id="name">
+				{#if form?.errors?.name}
+					<span class="error-message">{form?.errors.name[0]}</span>
+				{/if}
 			</div>
 			<div class="form-control description-input">
 				<label for="description">Description</label>
 				<input type="text" name="description" id="description">
+				{#if form?.errors?.description}
+					<span class="error-message">{form?.errors.description[0]}</span>
+				{/if}
 			</div>
 			<div class="form-control name-input">
 				<label for="time">Time (min)</label>
 				<input type="number" name="time" id="time">
+				{#if form?.errors?.time}
+					<span class="error-message">{form?.errors.time[0]}</span>
+				{/if}
 			</div>
 			<div class="form-control image-input">
 				<label for="images">Images</label>
 				<input type="file" name="images" id="images" bind:files multiple accept=".png,.jpg">
+				{#if form?.errors?.images}
+					<span class="error-message">{form?.errors.images[0]}</span>
+				{/if}
 			</div>
 			<fieldset class="form-control ingredients-input" name="ingredients">
 				<legend>Ingredients</legend>
 				{#each ingredients as _, i (i)}
 					<div class="ingredient-input">
-						<input type="text" name={`ingredient.${i}.name`} bind:value={ingredients[i].name} placeholder="Name">
-						<input type="number" name={`ingredient.${i}.amount`} bind:value={ingredients[i].amount} placeholder="Amount">
-						<input type="text" name={`ingredient.${i}.units`} bind:value={ingredients[i].units}  placeholder="Units">
+						<input type="text" bind:value={ingredients[i].name} placeholder="Name">
+						<input type="number" bind:value={ingredients[i].amount} placeholder="Amount">
+						<input type="text" bind:value={ingredients[i].units}  placeholder="Units">
 						<button type="button" on:click={() => removeIngredient(i)}>&#10005;</button>
 					</div>
-				{/each}
+					{/each}
+				{#if form?.errors?.ingredients}
+					<span class="error-message">{form?.errors.ingredients[0]}</span>
+				{/if}
 				<button type="button" on:click={addIngredient}>Add Ingredient</button>
 			</fieldset>
 		</div>
@@ -103,6 +118,11 @@
 		input {
 			font-size: 1.05rem;
 		}
+	}
+
+	.error-message {
+		margin-top: 0.125rem;
+		color: red;
 	}
 
 	div[slot="form-nav"] {

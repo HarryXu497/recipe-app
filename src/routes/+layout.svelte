@@ -18,8 +18,8 @@
 	</div>
 	<div class="nav-account">
 		{#if $currentUser}
-			<a href="/account">{ $currentUser.username }</a>
-			<form action="/account/logout" method="POST" use:enhance={() => {
+			<a href="/settings">{ $currentUser.username }</a>
+			<form action="/logout" method="POST" use:enhance={() => {
 				return async ({ result }) => {
 					pb.authStore.clear();
 					await applyAction(result);
@@ -30,7 +30,7 @@
 				</button>
 			</form>
 		{:else}
-			<a href="/account/login">Log in</a>
+			<a href="/login">Log in</a>
 		{/if}
 	</div>
 </nav>

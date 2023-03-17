@@ -26,12 +26,12 @@ const first = (async ({ event, resolve }) => {
 
 const second = (async ({ event, resolve }) => {
 
-	const needToBeLoggedIn = ["/recipes/new"]
+	const needToBeLoggedIn = ["/recipes/new", "/settings"]
 
 	/// Route Guards
 	for (const route of needToBeLoggedIn) {
-		if ((event.url.pathname.startsWith(route)) && (!event.locals.user)) {
-			throw redirect(302, `/account/login?redirectTo=${route}`)
+		if ((event.url.pathname === route) && (!event.locals.user)) {
+			throw redirect(302, `/login?redirectTo=${route}`)
 		}
 	}
 

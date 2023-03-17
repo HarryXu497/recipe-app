@@ -10,10 +10,10 @@
 
 <AccountForm>
 	<div slot="form-nav" class="form-mode">
-		<a href="/account/login" class="login">
+		<a href="/login" class="login">
 			Login
 		</a>
-		<a href="/account/register">
+		<a href="/register">
 			Register
 		</a>
 	</div>

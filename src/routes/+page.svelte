@@ -57,7 +57,7 @@
 		flex-basis: 60%;
 		flex-grow: 1;
 		background-color: exports.$color-secondary-200;
-
+	
 		display: grid;
 		grid-template-columns: repeat(12, 1fr);
 		grid-template-rows: repeat(12, 1fr);

@@ -12,26 +12,27 @@ export const recipeSchema = z.object({
 	time: z
 		.number({
 			required_error: 'Time is required',
-			invalid_type_error: 'Age must be a number'
+			invalid_type_error: 'Time must be a number'
 		})
 		.int()
 		.nonnegative({ message: 'Time must be positive' }),
 	ingredients: z
 		.array(z.object({
 			name: z
-				.string({ required_error: 'Name is required' }),
+				.string({ required_error: 'Name is required' })
+				.min(1, { message: 'Name is required' }),
 			amount: z
-				.number({ required_error: 'Amount is required' })
+				.number({
+					required_error: 'Amount is required',
+					invalid_type_error: 'Amount is required'
+				})
 				.positive({ message: "Amount must be positive" }),
 			units: z
 				.string(),
 		})).nonempty(),
-	// images: z
-	// 	.instanceof(File)
-	// 	.or({ })
-	// 	.instanceof(FileList)
+	images: z
+		.any()
+		
 })
-
-recipeSchema.parse(new FormData())
 
 export default recipeSchema;
