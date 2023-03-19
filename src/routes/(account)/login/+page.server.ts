@@ -37,10 +37,6 @@ export const actions = {
 		}
 
 		/// Redirect
-		if (event.url.searchParams.has('redirectTo')) {
-			throw redirect(303, event.url.searchParams.get('redirectTo') || "/");
-		}
-
-		return { success: true };
+		throw redirect(303, event.url.searchParams.get('redirectTo') || "/");
 	}
 } satisfies Actions;
