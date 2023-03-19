@@ -1,8 +1,10 @@
 <script lang="ts">
-	import type { Record } from "pocketbase";
-	import { currentUser, pb } from "$lib/pocketbase";
+	import { pb } from "$lib/pocketbase";
 	import "../styles/global.scss";
   	import { applyAction, enhance } from "$app/forms";
+  	import type { LayoutServerData } from "./$types";
+
+	export let data: LayoutServerData;
 </script>
 
 <nav>
@@ -16,8 +18,8 @@
 		<a href="/recipes">Recipes</a>
 	</div>
 	<div class="nav-account">
-		{#if $currentUser}
-			<a href="/settings/profile">{ $currentUser.username }</a>
+		{#if data.user}
+			<a href="/settings/profile">{ data.user.username }</a>
 			<form action="/logout" method="POST" use:enhance={() => {
 				return async ({ result }) => {
 					pb.authStore.clear();
