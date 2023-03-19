@@ -1,15 +1,25 @@
+import { currentUser } from '../../../lib/pocketbase';
+import type User from '../../../user.model';
+import type { Actions } from './$types';
+import { redirect } from '@sveltejs/kit';
 
 export const actions = {
-	default: async ({ request, locals }) => {
+	default: async ({ request, locals, url }) => {
 		if (!locals.user) return;
 
 		const data = await request.formData();
-		console.error(data);
-
+		
+		if (data.has("avatar") && (data.get("avatar") as File).size === 0) {
+			data.delete("avatar")
+		}
+		
 		try {
-			await locals.pb.collection("users").update(locals?.user?.id, data);
+			const r = await locals.pb.collection("users").update<User>(locals?.user?.id, data);
+			currentUser.set(r)
 		} catch (err) {
 			console.error(err);
 		}
+
+		throw redirect(301, url.pathname);
 	}
-}
+} satisfies Actions
