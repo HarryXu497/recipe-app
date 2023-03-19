@@ -2,7 +2,13 @@ import { redirect, type Handle } from '@sveltejs/kit';
 import { pb } from './lib/pocketbase';
 import { sequence } from '@sveltejs/kit/hooks';
  
+interface Route {
+	path: string;
+	match?: 'exact' | 'prefix';
+}
+
 const first = (async ({ event, resolve }) => {
+
 	/// User Auth
 	pb.authStore.loadFromCookie(event.request.headers.get('cookie') || '');
 
@@ -26,12 +32,20 @@ const first = (async ({ event, resolve }) => {
 
 const second = (async ({ event, resolve }) => {
 
-	const needToBeLoggedIn = ["/recipes/new", "/settings"]
+	const needToBeLoggedIn: Route[] = [
+		{ path: "/recipes/new", match: "exact"},
+		{ path: "/settings", match: "prefix"},
+	]
 
 	/// Route Guards
 	for (const route of needToBeLoggedIn) {
-		if ((event.url.pathname === route) && (!event.locals.user)) {
-			throw redirect(302, `/login?redirectTo=${route}`)
+		if ((!event.locals.user)) {
+			if ((route.match === "exact") && (event.url.pathname === route.path)) {
+				throw redirect(302, `/login?redirectTo=${route}`)
+			}
+			if ((route.match === "prefix") && (event.url.pathname.startsWith(route.path))) {
+				throw redirect(302, `/login?redirectTo=${route}`)
+			}
 		}
 	}
 
