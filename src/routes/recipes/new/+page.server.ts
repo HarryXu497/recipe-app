@@ -32,14 +32,12 @@ export const actions = {
 
 		/// Form Validation
 		try {
-			console.log(obj)
-			console.log(recipeSchema.parse(obj))
+			recipeSchema.parse(obj)
 		} catch (err) {
 			if (err instanceof ZodError) {
 				const errors = err.flatten().fieldErrors
 				const { name, description, time, ingredients } = obj;
 
-				console.log(errors)
 
 				return fail(400, {
 					name,
