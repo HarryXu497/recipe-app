@@ -32,6 +32,7 @@ export const actions = {
 
 		/// Form Validation
 		try {
+			obj["time"] = +obj["time"];
 			recipeSchema.parse(obj)
 		} catch (err) {
 			if (err instanceof ZodError) {

@@ -10,7 +10,7 @@
 		<slot name="button"/>
 	</button>
 	{#if isOpen}
-		<div class="dropdown-menu">
+		<div class="dropdown-menu" on:click|stopPropagation={() => {}}>
 			<slot/>
 		</div>
 	{/if}

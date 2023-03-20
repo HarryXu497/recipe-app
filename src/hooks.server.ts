@@ -41,10 +41,10 @@ const second = (async ({ event, resolve }) => {
 	for (const route of needToBeLoggedIn) {
 		if ((!event.locals.user)) {
 			if ((route.match === "exact") && (event.url.pathname === route.path)) {
-				throw redirect(302, `/login?redirectTo=${route}`)
+				throw redirect(302, `/login?redirectTo=${route.path}`)
 			}
 			if ((route.match === "prefix") && (event.url.pathname.startsWith(route.path))) {
-				throw redirect(302, `/login?redirectTo=${route}`)
+				throw redirect(302, `/login?redirectTo=${route.path}`)
 			}
 		}
 	}

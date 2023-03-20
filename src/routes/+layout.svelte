@@ -3,8 +3,8 @@
 	import { pb } from "$lib/pocketbase";
   	import type { LayoutServerData } from "./$types";
   	import DropdownMenu from "$lib/components/DropdownMenu.svelte";
-  import DropdownItem from "$lib/components/DropdownItem.svelte";
-  import { applyAction, enhance } from "$app/forms";
+	import DropdownItem from "$lib/components/DropdownItem.svelte";
+	import { applyAction, enhance } from "$app/forms";
 
 	export let data: LayoutServerData;
 	let dropdownIsOpen = false;
@@ -106,8 +106,12 @@
 	}
 
 	.image-container {
+		width: 3rem;
+		aspect-ratio: 1 / 1;
+
 		img {
 			border-radius: 50%;
+			width: 100%;
 		}
 	}
 
