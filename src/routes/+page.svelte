@@ -166,4 +166,15 @@
 			transform: translateY(-5%);
 		}
 	}
+
+	@include exports.media-laptop-2 {
+		.hero {
+			flex-basis: 50%;
+		}
+
+		.recipe-grid {
+			flex-basis: 50%;
+		}
+
+	}
 </style>
