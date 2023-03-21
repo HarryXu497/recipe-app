@@ -2,8 +2,17 @@
 	<slot/>
 </div>
 
-<style>
+<style lang="scss">
+	@use "../../styles/exports.scss" as exports;
+
 	.dropdown-item {
-		padding: 0.25rem 0.75rem;
+		font-size: 1rem;
+		background-color: exports.$color-primary-200;
+		padding: 0.75rem 1.25rem;
+		
+		&:hover {
+			cursor: pointer;
+			background-color: exports.$color-primary-400;
+		}
 	}
 </style>

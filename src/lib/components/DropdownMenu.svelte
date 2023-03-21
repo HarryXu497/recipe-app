@@ -10,15 +10,19 @@
 		<slot name="button"/>
 	</button>
 	{#if isOpen}
-		<div class="dropdown-menu" on:click|stopPropagation={() => {}}>
+		<!-- svelte-ignore a11y-click-events-have-key-events -->.
+		<div class="dropdown-menu" on:click|stopPropagation>
 			<slot/>
 		</div>
 	{/if}
 </div>
 
-<style>
+<style lang="scss">
+	@use "../../styles/exports.scss" as exports;
+
 	.dropdown {
 		position: relative;
+		z-index: 10;
 	}
 
 	button {
@@ -28,8 +32,8 @@
 	.dropdown-menu {
 		background-color: white;
 		position: absolute;
-		top: 100%;
-		width: 100%;
+		top: calc(100% + 0.25rem);
+		min-width: calc(100% + 2rem);
 		
 	}
 </style>
