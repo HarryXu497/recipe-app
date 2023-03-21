@@ -25,31 +25,38 @@
 		<a href="/recipes">Recipes</a>
 	</div>
 	<div class="nav-account">
+
 		{#if data.user}
 			<!-- <button on:click={openDropdown}>{ data.user.username }  <span class="dropdown-arrow"></span></button> -->
 			<DropdownMenu>
 				<button slot="button" on:click={openDropdown}>{ data.user.username } <span class="dropdown-arrow"></span></button>
-				<DropdownItem>
-					<a href="/settings/profile">Profile</a>
-				</DropdownItem>
-				<DropdownItem>
-					<a href="/settings/account">Account</a>
-				</DropdownItem>
-				<DropdownItem>
-					<a href="/settings/security">Security</a>
-				</DropdownItem>
-				<DropdownItem>
-					<form action="/logout" method="POST" use:enhance={() => {
-							return async ({ result }) => {
-								pb.authStore.clear();
-								await applyAction(result);
-							}
-						}}>
-						<button type="submit">
+				<a href="/settings/profile">
+					<DropdownItem>
+						Profile
+					</DropdownItem>
+				</a>
+				<a href="/settings/account">
+					<DropdownItem>
+						Account
+					</DropdownItem>
+				</a>
+				<a href="/settings/security">
+					<DropdownItem>
+						Security
+					</DropdownItem>
+				</a>
+				<form action="/logout" method="POST" use:enhance={() => {
+						return async ({ result }) => {
+							pb.authStore.clear();
+							await applyAction(result);
+						}
+					}}>
+					<button type="submit">
+						<DropdownItem>
 							Logout
-						</button>
-					</form>
-				</DropdownItem>
+						</DropdownItem>
+					</button>
+				</form>
 			</DropdownMenu>
 			<div class="image-container">
 				<img src={data.user?.avatar ? pb.getFileUrl(data.user, data.user.avatar, { thumb: "48x48f" }) : "../default_pfp.svg"} alt={ data.user.username } title={ data.user.username }>
@@ -102,6 +109,11 @@
 
 			transform: rotate(45deg) translateY(-4px);
   			-webkit-transform: rotate(45deg) translateY(-4px);
+		}
+
+		form button[type="submit"] {
+			display: inline-block;
+			width: 100%;
 		}
 	}
 
