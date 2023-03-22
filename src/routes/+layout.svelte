@@ -7,11 +7,6 @@
 	import { applyAction, enhance } from "$app/forms";
 
 	export let data: LayoutServerData;
-	let dropdownIsOpen = false;
-
-	function openDropdown() {
-		dropdownIsOpen = true;
-	}
 </script>
 
 <nav>
@@ -27,9 +22,8 @@
 	<div class="nav-account">
 
 		{#if data.user}
-			<!-- <button on:click={openDropdown}>{ data.user.username }  <span class="dropdown-arrow"></span></button> -->
 			<DropdownMenu>
-				<button slot="button" on:click={openDropdown}>{ data.user.username } <span class="dropdown-arrow"></span></button>
+				<button slot="button">{ data.user.username } <span class="dropdown-arrow"></span></button>
 				<a href="/settings/profile">
 					<DropdownItem>
 						Profile
@@ -61,16 +55,6 @@
 			<div class="image-container">
 				<img src={data.user?.avatar ? pb.getFileUrl(data.user, data.user.avatar, { thumb: "48x48f" }) : "../default_pfp.svg"} alt={ data.user.username } title={ data.user.username }>
 			</div>
-			<!-- <form action="/logout" method="POST" use:enhance={() => {
-				return async ({ result }) => {
-					pb.authStore.clear();
-					await applyAction(result);
-				}
-			}}>
-				<button type="submit">
-					Logout
-				</button>
-			</form> -->
 		{:else}
 			<a href="/login">Log in</a>
 		{/if} 
