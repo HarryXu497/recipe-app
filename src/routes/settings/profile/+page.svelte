@@ -1,6 +1,6 @@
 <script lang="ts">
   	import { enhance } from "$app/forms";
-  import { invalidateAll } from "$app/navigation";
+  	import { invalidateAll } from "$app/navigation";
 	import Settings from "$lib/components/Settings.svelte";
 	import { pb } from "$lib/pocketbase";
   	import type { PageData } from "./$types";
@@ -26,6 +26,9 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Profile</title>
+</svelte:head>
 
 <Settings>
 	<form method="POST" enctype="multipart/form-data" use:enhance={() => {

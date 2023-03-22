@@ -5,6 +5,10 @@
 	export let data: PageServerData;
 </script>
 
+<svelte:head>
+	<title>Recipes</title>
+</svelte:head>
+
 <main class="recipe-grid">
 	<RecipeGrid recipes={data.recipes}/>
 </main>

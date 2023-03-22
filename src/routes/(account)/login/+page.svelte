@@ -7,6 +7,9 @@
 	export let form: ActionData;
 </script>
 
+<svelte:head>
+	<title>Log In</title>
+</svelte:head>
 
 <AccountForm>
 	<div slot="form-nav" class="form-mode">

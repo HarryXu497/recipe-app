@@ -37,6 +37,10 @@
 
 </script>
 
+<svelte:head>
+	<title>Add A Recipe</title>
+</svelte:head>
+
 <AccountForm>
 	<div slot="form-nav">
 		Create Your Recipe

@@ -8,6 +8,10 @@
 </script>
 
 
+<svelte:head>
+	<title>Register</title>
+</svelte:head>
+
 <AccountForm>
 	<div slot="form-nav" class="form-mode">
 		<a href="/login">

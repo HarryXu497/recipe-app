@@ -1,8 +1,11 @@
 <script lang="ts">
 	import Settings from "$lib/components/Settings.svelte";
-	import { currentUser, pb } from "$lib/pocketbase";
 </script>
 
+
+<svelte:head>
+	<title>Account</title>
+</svelte:head>
 
 <Settings>
 

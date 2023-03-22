@@ -6,6 +6,10 @@
 
 </script>
 
+<svelte:head>
+	<title>RecipeBook</title>
+</svelte:head>
+
 <main>
 	<div class="hero">
 		<div class="hero-text">

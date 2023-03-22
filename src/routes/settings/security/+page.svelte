@@ -3,8 +3,11 @@
 </script>
 
 
+<svelte:head>
+	<title>Security</title>
+</svelte:head>
+
 <Settings>
-	<div class="form-control">
 
 </Settings>
 
