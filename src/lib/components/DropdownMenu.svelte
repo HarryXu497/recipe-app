@@ -1,6 +1,5 @@
 <script>
 	let isOpen = false;
-
 </script>
 
 <svelte:window on:click={() => isOpen = false}/>
