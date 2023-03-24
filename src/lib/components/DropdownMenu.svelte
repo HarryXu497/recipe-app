@@ -1,16 +1,16 @@
 <script>
+  	import clickOutside from "$lib/directives/clickOutside";
+
+
 	let isOpen = false;
 </script>
 
-<svelte:window on:click={() => isOpen = false}/>
-
-<div class="dropdown">
+<div class="dropdown" use:clickOutside on:outclick={() => isOpen = false}>
 	<button on:click|stopPropagation={() => isOpen = true}>
 		<slot name="button"/>
 	</button>
 	{#if isOpen}
-		<!-- svelte-ignore a11y-click-events-have-key-events -->.
-		<div class="dropdown-menu" on:click|stopPropagation>
+		<div class="dropdown-menu">
 			<slot/>
 		</div>
 	{/if}

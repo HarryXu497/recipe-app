@@ -38,18 +38,19 @@
 						Security
 					</DropdownItem>
 				</a>
-				<form action="/logout" method="POST" use:enhance={() => {
+				<DropdownItem>
+					<form action="/logout" method="POST" use:enhance={() => {
+						console.log("Logging Out")
 						return async ({ result }) => {
 							pb.authStore.clear();
 							await applyAction(result);
 						}
 					}}>
-					<button type="submit">
-						<DropdownItem>
+						<button type="submit">
 							Logout
-						</DropdownItem>
-					</button>
-				</form>
+						</button>
+					</form>
+				</DropdownItem>
 			</DropdownMenu>
 			<div class="image-container">
 				<img src={user?.avatar ? pb.getFileUrl(user, user.avatar, { thumb: "48x48f" }) : "../default_pfp.svg"} alt={ user.username } title={ user.username }>
