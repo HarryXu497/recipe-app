@@ -16,10 +16,10 @@
 				<a href="/help">Product Help</a>
 				<a href="/issues">Report an Issue</a>
 			</div>
-			<div class="links__support">
-				<h2>Support</h2>
-				<a href="/help">Product Help</a>
-				<a href="/issues">Report an Issue</a>
+			<div class="links__contact">
+				<h2>Contact</h2>
+				<a href="/contact">Contact Us</a>
+				<a href="/idea">Have an Idea?</a>
 			</div>
 			<div class="links__support">
 				<h2>Support</h2>
@@ -28,6 +28,7 @@
 			</div>
 		</div>
 	</div>
+	<hr>
 	<div class="guidelines">
 		<div>
 			<span>Copyright &copy; { new Date().getFullYear() } Harry Xu. All Rights Reserved</span>
@@ -42,8 +43,8 @@
 
 	footer {
 		background-color: exports.$color-dark-100;
-		color: exports.$color-primary-100;
-		padding: 2rem;
+		color: exports.$color-primary-200;
+		padding: 3rem 3rem;
 		font-family: exports.$font-sans-serif;
 		bottom: 0;
 		left: 0;
@@ -52,6 +53,15 @@
 
 	.content {
 		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	hr {
+		$margin: 2rem;
+
+		margin-top: $margin;
+		margin-bottom: $margin;
 	}
 
 	.info {
@@ -64,6 +74,26 @@
 
 			font-weight: bold;
 			font-size: 2rem;;
+		}
+	}
+
+	.links {
+		display: flex;
+		flex-direction: row;
+		gap: 4rem;
+
+		a {
+			color: inherit;
+			text-decoration: none;
+		}
+
+		h2 {
+			font-weight: bold;
+		}
+
+		> *[class^="links__"] {
+			display: flex;
+			flex-direction: column;
 		}
 	}
 </style>
