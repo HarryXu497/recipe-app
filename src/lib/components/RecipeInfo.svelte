@@ -1,14 +1,26 @@
 <script lang="ts">
 	import StarRating from "./StarRating.svelte";
   	import ImageCarousel from "./ImageCarousel.svelte";
-  	import type Recipe from "../../recipe.model";
+  	import type Recipe from "$lib/models/recipe.model";
+  	import DropdownMenu from "./DropdownMenu.svelte";
+  	import DropdownItem from "./DropdownItem.svelte";
 
 	export let recipe: Recipe;
 </script>
 
 
 <main class="content">
-	<a href="/recipes" class="close-button">&#10005;</a>
+	<div class="button-group">
+		<a href="/recipes" class="close-button">&#10005;</a>
+		<DropdownMenu alignment="right">
+			<button slot="button">&#10247;</button>
+			<DropdownItem>
+				<form action={`/recipes/${encodeURIComponent(recipe.id)}/delete`} method="POST">
+					<button type="submit">Delete</button>
+				</form>
+			</DropdownItem>
+		</DropdownMenu>
+	</div>
 	<div class="recipe-header">
 		<h1>{recipe.name}</h1>
 		<h2>{recipe.description}</h2>
@@ -23,65 +35,93 @@
 </main>
 
 <style lang="scss">
-  @use "../../styles/exports.scss" as exports; 
+	@use "../../styles/exports.scss" as exports; 
 
-  $top-padding: 3rem;
+	$top-padding: 3rem;
 
-  .content {
-	position: relative;
+	.content {
+		position: relative;
 
-	padding: 1.5rem;
-	margin: 0 auto;
-	height: calc(100vh - $top-padding);
-  }
+		padding: 1.5rem;
+		margin: 0 auto;
+		height: calc(100vh - $top-padding);
+	}
 
-  .close-button {
-	position: absolute;
+	.button-group {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
 
-	font-weight: bold;
-	font-size: 1.5rem;
-	color: exports.$color-dark-100;
-	text-decoration: none;;
-  }
+		button {
+			all: unset
+		}
 
-  .recipe-header {
-	  padding-top: $top-padding;
-	  margin-bottom: 1rem;
+		a, button {
+			text-decoration: none;
+			font-size: 1.5rem;
 
-	  display: flex;
-	  flex-direction: column;
-	  gap: 0.25rem;
+			font-weight: bold;
+			font-size: 1.5rem;
+			color: exports.$color-dark-100;
+			text-decoration: none;
 
-	  h1 {
-		  font-size: 3.5rem;
-		  /* font-weight: bold; */
-		  line-height: 1.4;
-		  font-family: exports.$font-serif;
+			&:hover {
+				cursor: pointer;
+			}
+		}
 
-		  color: exports.$color-dark-100
-	  }
+		.menu-button {
+			right: 0;
+		}
 
-	  h2 {
-		  font-size: 1.3rem;
-		  line-height: 1;
-		  color: exports.$color-dark-400
-	  }
-  }
+		.close-button {
+			left: 0;
+		}
+	}
 
-  .recipe-info {
-	  display: flex;
-	  flex-direction: row;
-	  justify-content: space-between;
-	  margin-top: 0.75rem;
+	.button-group form button {
+		all: unset;
+		font-family: exports.$font-sans-serif;
+	}
 
-	  font-family: exports.$font-sans-serif;
+	.recipe-header {
+		padding-top: $top-padding;
+		margin-bottom: 1rem;
 
-	  span {
-		  font-size: 1.5rem;
-	  }
-  }
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
 
-  .image-container {
-	  height: 28rem;
-  }
+		h1 {
+			font-size: 3.5rem;
+			/* font-weight: bold; */
+			line-height: 1.4;
+			font-family: exports.$font-serif;
+
+			color: exports.$color-dark-100
+		}
+
+		h2 {
+			font-size: 1.3rem;
+			line-height: 1;
+			color: exports.$color-dark-400
+		}
+	}
+
+	.recipe-info {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		margin-top: 0.75rem;
+
+		font-family: exports.$font-sans-serif;
+
+		span {
+			font-size: 1.5rem;
+		}
+	}
+
+	.image-container {
+		height: 28rem;
+	}
 </style>

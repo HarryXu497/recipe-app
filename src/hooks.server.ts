@@ -1,6 +1,7 @@
-import { redirect, type Handle } from '@sveltejs/kit';
+import { redirect, type Handle, error } from '@sveltejs/kit';
 import { pb } from './lib/pocketbase';
 import { sequence } from '@sveltejs/kit/hooks';
+import type Recipe from '$lib/models/recipe.model';
  
 interface Route {
 	path: string;
@@ -31,7 +32,6 @@ const first = (async ({ event, resolve }) => {
 }) satisfies Handle;
 
 const second = (async ({ event, resolve }) => {
-
 	const needToBeLoggedIn: Route[] = [
 		{ path: "/recipes/new", match: "exact"},
 		{ path: "/settings", match: "prefix"},
@@ -49,9 +49,22 @@ const second = (async ({ event, resolve }) => {
 		}
 	}
 
+	if (event.url.pathname.startsWith("/recipes") && event.url.pathname.endsWith("/delete") && event.params.id) {
+		if (!event.locals.user) {
+			throw redirect(302, `/login?redirectTo=${event.url.pathname}`)
+		}
+
+		const userId = event.locals.user?.id
+
+		const recipe = await event.locals.pb.collection("recipes").getOne<Recipe>(event.params.id, { expand: "author" })
+
+		if (recipe.expand.author.id !== userId) {
+			throw error(403, { message: "Unauthorized" })
+		}
+	}
+
 
 	const response = await resolve(event);
-
 
 	return response;
 }) satisfies Handle;

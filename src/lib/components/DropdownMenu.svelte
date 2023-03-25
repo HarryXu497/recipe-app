@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
   	import clickOutside from "$lib/directives/clickOutside";
 
-
+	export let alignment: "left" | "right" | "" = ""
 	let isOpen = false;
 </script>
 
@@ -10,7 +10,7 @@
 		<slot name="button"/>
 	</button>
 	{#if isOpen}
-		<div class="dropdown-menu">
+		<div class="dropdown-menu" class:align-left={alignment === "left"} class:align-right={alignment === "right"}>
 			<slot/>
 		</div>
 	{/if}
@@ -33,6 +33,13 @@
 		position: absolute;
 		top: calc(100% + 0.25rem);
 		min-width: calc(100% + 2rem);
-		
+	}
+
+	.align-left {
+		left: 0;
+	}
+
+	.align-right {
+		right: 0;
 	}
 </style>

@@ -1,8 +1,8 @@
-import type { Record } from "pocketbase"
-import type { PageServerLoad } from './$types';
-import type Ingredient from '../../../ingredient.model';
-import type Recipe from '../../../recipe.model';
 import { pb } from '$lib/pocketbase';
+import type { Record } from "pocketbase";
+import type Ingredient from '../../../lib/ingredient.model';
+import type Recipe from '../../../recipe.model';
+import type { PageServerLoad } from './$types';
 
 export const load = (async (context) => {
 	const recipesCollection = pb.collection("recipes");

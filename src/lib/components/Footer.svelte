@@ -94,6 +94,7 @@
 		> *[class^="links__"] {
 			display: flex;
 			flex-direction: column;
+			gap: 0.25rem;
 		}
 	}
 </style>
