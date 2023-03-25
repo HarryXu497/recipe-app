@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { pb } from "$lib/pocketbase";
   	import DropdownMenu from "$lib/components/DropdownMenu.svelte";
 	import DropdownItem from "$lib/components/DropdownItem.svelte";
-	import { applyAction, enhance } from "$app/forms";
+	import { enhance } from "$app/forms";
   	import type { Admin, Record } from "pocketbase";
+  	import { pb } from "$lib/pocketbase";
+
 
 	export let user: Record | Admin | undefined;
 </script>
@@ -39,13 +40,7 @@
 					</DropdownItem>
 				</a>
 				<DropdownItem>
-					<form action="/logout" method="POST" use:enhance={() => {
-						console.log("Logging Out")
-						return async ({ result }) => {
-							pb.authStore.clear();
-							await applyAction(result);
-						}
-					}}>
+					<form action="/logout" method="POST" use:enhance>
 						<button type="submit">
 							Logout
 						</button>
