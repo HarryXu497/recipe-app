@@ -2,7 +2,7 @@ import { pb } from '$lib/pocketbase';
 import { fail, redirect } from '@sveltejs/kit';
 import { ClientResponseError, type Record } from 'pocketbase';
 import { ZodError } from 'zod';
-import type { IngredientObject } from '../../../lib/ingredient.model';
+import type { IngredientObject } from '$lib/models/ingredient.model';
 import recipeSchema from '../recipe.schema';
 import type { Actions } from './$types';
 

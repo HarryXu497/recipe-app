@@ -1,5 +1,5 @@
-import { currentUser } from '../../../lib/pocketbase';
-import type User from '../../../user.model';
+import { currentUser } from '$lib/pocketbase';
+import type User from '$lib/models/user.model';
 import type { Actions } from './$types';
 import { redirect } from '@sveltejs/kit';
 

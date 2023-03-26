@@ -4,9 +4,11 @@
 	import { enhance } from "$app/forms";
   	import type { Admin, Record } from "pocketbase";
   	import { pb } from "$lib/pocketbase";
+  	import type User from "$lib/models/user.model";
 
 
 	export let user: Record | Admin | undefined;
+	$: u = user as Record;
 </script>
 
 <nav>
@@ -48,7 +50,7 @@
 				</DropdownItem>
 			</DropdownMenu>
 			<div class="image-container">
-				<img src={user?.avatar ? pb.getFileUrl(user, user.avatar, { thumb: "48x48f" }) : "../default_pfp.svg"} alt={ user.username } title={ user.username }>
+				<img src={user?.avatar ? pb.getFileUrl(u, user.avatar, { thumb: "48x48f" }) : "../default_pfp.svg"} alt={ user.username } title={ user.username }>
 			</div>
 		{:else}
 			<a href="/login">Log in</a>

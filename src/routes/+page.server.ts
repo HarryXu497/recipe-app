@@ -1,5 +1,5 @@
 import type { PageServerLoad } from './$types';
-import type Recipe from '../recipe.model';
+import type Recipe from '$lib/models/recipe.model';
 import { pb } from "$lib/pocketbase";
 
 

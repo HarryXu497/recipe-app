@@ -1,7 +1,7 @@
 import { pb } from '$lib/pocketbase';
 import type { Record } from "pocketbase";
-import type Ingredient from '../../../lib/ingredient.model';
-import type Recipe from '../../../recipe.model';
+import type Ingredient from '$lib/models/ingredient.model';
+import type Recipe from '$lib/models/recipe.model';
 import type { PageServerLoad } from './$types';
 
 export const load = (async (context) => {

@@ -1,8 +1,8 @@
 <script lang="ts">
   	import { enhance } from "$app/forms";
   	import AccountForm from "$lib/components/AccountForm.svelte";
-  	import type { IngredientObject } from "../ingredient.model";
-  	import type Recipe from "../../recipe.model";
+  	import type { IngredientObject } from "$lib/models/ingredient.model";
+  	import type Recipe from "$lib/models/recipe.model";
 
 	export let form: {
 		[x: string]: unknown;
