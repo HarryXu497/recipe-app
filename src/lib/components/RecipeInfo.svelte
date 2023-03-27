@@ -44,7 +44,6 @@
 
 		padding: 1.5rem;
 		margin: 0 auto;
-		height: calc(100vh - $top-padding);
 	}
 
 	.button-group {

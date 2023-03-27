@@ -1,9 +1,11 @@
 <script lang="ts">
   	import RecipeGrid from "$lib/components/RecipeGrid.svelte";
   	import RecipeInfo from "$lib/components/RecipeInfo.svelte";
+  import { onMount } from "svelte";
 	import type { PageServerData } from "./$types";
 
   	export let data: PageServerData;
+	let height: number;
 </script>
 
 <svelte:head>
@@ -12,10 +14,10 @@
 
 
 <main>
-	<div class="recipe-grid">
+	<div class="recipe-grid" style:height={`${height}px`}>
 		<RecipeGrid recipes={data.recipes}/>
 	</div>
-	<div class="recipe-info">
+	<div class="recipe-info" bind:clientHeight={height}>
 		<RecipeInfo recipe={data.recipe}/>
 	</div>
 </main>
@@ -42,6 +44,7 @@
 		flex: 70%;
 		overflow-y: auto;
 		height: calc(100% - calc(2 * var(--padding)));
+		box-sizing: border-box;
 
 		gap: 1rem;
 	}
@@ -58,7 +61,7 @@
 
 	.recipe-info {
 		background-color: exports.$color-secondary-800;
-		overflow-y: hidden;
+		// overflow-y: hidden;
 	}
 
 	@include exports.media-mobile {
